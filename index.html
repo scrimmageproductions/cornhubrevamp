@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CornHub Intl. </title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  
+</head>
+
+<body>
+    <div class="flex.container">
+  <center>
+
+  <a href="https://misctyler.github.io/CornHub/">
+    <img src="images/teste-f-branco-1.png" alt="CornHub Banner" style="width:100%;max-width:500px;height:auto;">
+    <br>
+   </a>
+
+
+   <p id="network-status"></p>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.5.2/web3.min.js" integrity="sha512-qfNEgqdLEd+OkOZSZxb9kPOvOz62NNoPd0A5W5G8LMwfdtKn3+5D/tx5zvgu+7IaPqkFq60VfJ+Mn1bVJjMx/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script>
+     // Check if MetaMask is installed and is connected
+     if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+       // Check if the current network is Polygon
+       ethereum.request({ method: 'net_version' }, (error, networkId) => {
+         if (error) {
+           console.error(error);
+         } else if (networkId === '137') {
+           // The current network is Polygon
+           document.getElementById('network-status').textContent = 'Connected to Polygon';
+         } else {
+           // The current network is not Polygon
+           document.getElementById('network-status').textContent = 'WRONG NETWORK';
+         }
+       });
+     } else {
+       // MetaMask is not installed or is not connected
+       document.getElementById('network-status').textContent = 'MetaMask not found';
+     }
+   </script>
+
+
+
+   <div id="balance"></div>
+   <div id="balance2"></div>
+   <div id="balance3"></div>
+   <br>
+  
+  <button onclick="connect()">Connect wallet</button>
+  <button onclick="approve()">Approve Corn</button>
+  <button onclick="approve2()">Approve PopCorn</button>
+
+<hr>
+  <p>
+  <img src="images/polygon-matic-logo.png" alt="polygon" style="width:100%;max-width:25px;height:auto;"> 
+  <span>*** Please Only Connect using Polygon (matic) network ***</span>
+  <img src="images/polygon-matic-logo.png" alt="polygon" style="width:100%;max-width:25px;height:auto;">
+  <br>
+1) Connect your wallet (assumes metamask or other types of injected wallets) <br>
+2) Hit Approve Corn to approve the PopCorn Machine to transfer your CORN Tokens <br>
+3) Hit Approve PopCorn to approve the PopCorn Machine to transfer your POPCORN Tokens <br>
+</p>
+  <button onclick="burncorn(1)">Burn 1 Corn</button>
+  <button onclick="burncorn(3)">Burn 3 Corn</button>
+  <button onclick="burncorn(5)">Burn 5 Corn</button><br>
+<p>
+4) Burn CORN kernels for POPCORN <br>
+6) Burn POPCORN to Mint NFT <br>
+More Popcorn == Better NFT <br> 
+[1]:Bronze [3]:Silver [5]:Gold <br>
+</p>
+ <button onclick="mintnft(1)">Mint Bronze </button>
+ <button onclick="mintnft(3)">Mint Silver </button>
+ <button onclick="mintnft(5)">Mint Gold </button><br>
+<hr>
+ <script>
+   window.addEventListener('load', async () => {
+     if (typeof window.ethereum !== 'undefined') {
+       await window.ethereum.enable()
+     }
+     const provider = new ethers.providers.Web3Provider(window.ethereum)
+     const signer = provider.getSigner()
+     const address = await signer.getAddress()
+     const tokenAddress = '0xa0c45509036c422ea7c4d4fcac26a9925531d8c3'
+     const tokenAbi = [
+       'function balanceOf(address) view returns (uint256)'
+     ]
+     const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider)
+     const decimals = 18
+     const balanceraw = await tokenContract.balanceOf(address)
+     /* const balance = balanceraw / 10**decimal */
+     const balance = typeof balanceraw === 'NaN' ? 'NOT CONNECTED / WRONG NETWORK ' : balanceraw / 10**decimals
+     document.getElementById('balance').innerText = `Corn Token balance: ${balance.toString()}`
+   })
+ </script>
+
+<script>
+  window.addEventListener('load', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      await window.ethereum.enable()
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    const address = await signer.getAddress()
+    const tokenAddress = '0x6531547b44784dDD8A934fB9fEB92ba582dfeD15'
+    const tokenAbi = [
+      'function balanceOf(address) view returns (uint256)'
+    ]
+    const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider)
+    const decimals = 18
+    const balanceraw = await tokenContract.balanceOf(address)
+    /* const balance = balanceraw / 10**decimal */
+    const balance = typeof balanceraw === 'NaN' ? 'NOT CONNECTED / WRONG NETWORK ' : balanceraw / 10**decimals
+    document.getElementById('balance2').innerText = `PopCorn Token balance: ${balance.toString()}`
+  })
+</script>
+
+<script>
+  window.addEventListener('load', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      await window.ethereum.enable()
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    const address = await signer.getAddress()
+    const tokenAddress = '0x409e02e728418501720d7b1e5d7328ac461ecaae'
+    const tokenAbi = [
+      'function balanceOf(address) view returns (uint256)'
+    ]
+    const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider)
+    const decimals = 18
+    const balanceraw = await tokenContract.balanceOf(address)
+    /* const balance = balanceraw / 10**decimal */
+    const balance = typeof balanceraw === 'NaN' ? 'NOT CONNECTED / WRONG NETWORK ' : balanceraw / 10**decimals
+    document.getElementById('balance3').innerText = `Butter Token balance: ${balance.toString()}`
+  })
+</script>
+ <br>
+ <p>
+  <img src="images/moeda-bronze.png" alt="Bronze Kernel" style="width:50px;height:50px;">
+  <img src="images/moeda.png" alt="Silver Kernel" style="width:50px;height:50px;">
+  <img src="images/moeda-gold.png" alt="Gold Kernel" style="width:50px;height:50px;">
+  <img src="images/moeda-vip.png" alt="VIP Kernel" style="width:50px;height:50px;"><br>
+  &#127805 <a href="https://quickswap.exchange/#/swap?exactField=input&outputCurrency=0xa0c45509036c422ea7c4d4fcac26a9925531d8c3&swapIndex=0" target="_blank">Trade for some $CORN Kernels</a> &#127805 <br>
+  &#127806 <a href="https://rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:540112?tab=overview" target="_blank">Buy OG CornHub VIP NFTs </a> &#127806 <br>
+  &#127918 <a href="https://misctyler.github.io/CornHub/autopets.html"> Weekly Auto Pets Tournaments </a> &#127918 <br>
+  &#127829 <a href="https://www.gallery.so/TylerIRL" target="_blank">Visit Tyler's NFT Gallery </a> &#127829 <br>
+  
+  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">in my mind, I am gilded, divine, and always reeling towards perfection</p>&mdash; TylerIRL (@itsTylerIRL) <a href="https://twitter.com/itsTylerIRL/status/1635667920121393157?ref_src=twsrc%5Etfw">March 14, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <br><blockquote class="twitter-tweet"><p lang="en" dir="ltr">You need to be tabmaxxing. Your browser needs to be barely able to run itself. Twitter, 10x different YouTube videos, all your crypto accounts, gmails, dexscreeners, spotify, another twitter but a different tweet, a google map from two weeks ago. This information is important!…</p>&mdash; TylerIRL (@itsTylerIRL) <a href="https://twitter.com/itsTylerIRL/status/1654241152126599174?ref_src=twsrc%5Etfw">May 4, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <a href="https://twitter.com/itstylerirl?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @itstTylerirl</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</p>
+
+<div id="transaction-list"></div>
+  <center>
+  <script>
+    const contractAddress = '0x1193d3f5d97e9a8a3b4511a718eda88c21722b44';
+    const abi = [ [{"constant":false,"inputs":[{"name":"_tokenAddr","type":"address"}],"name":"tokenNuke","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"contractStats","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"yeetOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"popCornToBurn","type":"uint256"}],"name":"mint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"kernelToBurn","type":"uint256"}],"name":"burnKernel","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_address","type":"address"}],"name":"vipMint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_tokenAddr","type":"address"}],"name":"poppedAirdrop","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"cornPopped","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"token","type":"address"}],"name":"airdrop","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_token","type":"address"},{"indexed":false,"name":"_payout","type":"uint256"}],"name":"ownerNuke","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_to","type":"address"},{"indexed":false,"name":"burnedCorn","type":"uint256"}],"name":"nftMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_vip","type":"address"}],"name":"vipMinted","type":"event"}] ];
+
+    // Create a web3 instance
+    const web3 = new Web3('https://rpc-mainnet.maticvigil.com');
+
+    // Get the contract instance
+    const contract = new web3.eth.Contract(abi, contractAddress);
+
+    // Get the latest 10 events of the "Transfer" event
+    const events = await contract.getPastEvents('Transfer', {
+      fromBlock: 0,
+      toBlock: 'latest',
+      limit: 10
+    });
+
+    // Display the events on the HTML page
+    const container = document.getElementById('transaction-list');
+    events.forEach((event) => {
+      const element = document.createElement('div');
+      element.textContent = `From: ${event.returnValues.from}, To: ${event.returnValues.to}, Value: ${event.returnValues.value}`;
+      container.appendChild(element);
+    });
+  </script>
+  </center>
+
+
+
+
+
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+        type="application/javascript"></script>
+  <script src="./script.js"></script>
+</center>
+<footer>© CornHub Intl.</footer>
+</body>
+</html>
+</div>

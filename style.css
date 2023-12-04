@@ -1,0 +1,41 @@
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(207, 253, 225);
+    margin: 50px 50px 0 50px;
+    min-height: 95vh;
+    font-family: 'Rubik', sans-serif;
+}
+
+button{
+    background-color: rgb(204, 255, 189);
+    color: rgb(28, 20, 39);
+    border: solid rgb(64, 57, 74);
+    font-size: large;
+    border-radius: 10px;
+}   
+
+hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+   
+}
+
+p{
+    background-color: rgb(156, 202, 174);
+    padding: 10px;
+    font-size: larger;
+    border-radius: 10px;
+}
+footer{
+    display: flex;
+    justify-content: center;
+    color: rgb(28, 20, 39);
+
+}
+
+span{
+    color:rgb(125, 80, 215);
+    font-size: larger;
+
+}
