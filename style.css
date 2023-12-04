@@ -39,3 +39,13 @@ span{
     font-size: larger;
 
 }
+
+@media (max-width:375px){
+
+    .flex.container{
+        width: 100%;
+    }
+    body{
+        width:100%;
+    }
+}
